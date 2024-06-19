@@ -16,9 +16,13 @@ int main() {
     if (input == "exit 0") {
       break;
     }
-    std::cout << input << ": command not found\n";
+    if (input.find("echo") != std::string::npos) {
+      input.erase(0,5);
+      std::cout << input << "\n";
+    } else {
+      std::cout << input << ": command not found\n";
+    }
     std::cout << "$ ";
-    //std::cout << input << std::endl;
   } while (true);
 
   return 0;
