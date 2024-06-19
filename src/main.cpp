@@ -10,10 +10,12 @@ int main() {
 
   // Uncomment this block to pass the first stage
   std::cout << "$ ";
-  //
   std::string input;
-  std::getline(std::cin, input);
-  std::cout << input << ": command not found\n";
+  do {
+    std::getline(std::cin, input);
+    std::cout << input << ": command not found\n";
+    std::cout << "$ ";
+  } while (true);
 
   return 0;
 }
