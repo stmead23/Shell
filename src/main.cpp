@@ -13,12 +13,19 @@ int main() {
   std::string input;
   do {
     std::getline(std::cin, input);
-    if (input == "exit 0") {
+    if (input.find("exit") != std::string::npos) {
       break;
     }
     if (input.find("echo") != std::string::npos) {
       input.erase(0,5);
       std::cout << input << "\n";
+    } else if(input.find("type") != std::string::npos) {
+      input.erase(0,5);
+      if (input == "echo" || input == "exit") {
+        std::cout << input << " is a shell builtin\n";
+      } else {
+        std::cout << input << ": not found\n";
+      }
     } else {
       std::cout << input << ": command not found\n";
     }
