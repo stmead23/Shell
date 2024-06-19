@@ -13,12 +13,13 @@ int main() {
   std::string input;
   do {
     std::getline(std::cin, input);
-    if (input != "exit 0") {
-     std::cout << input << ": command not found\n"; 
+    if (input == "exit 0") {
+      break;
     }
+    std::cout << input << ": command not found\n";
     std::cout << "$ ";
     //std::cout << input << std::endl;
-  } while (input != "exit 0");
+  } while (true);
 
   return 0;
 }
