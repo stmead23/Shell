@@ -4,6 +4,20 @@
 #include <fstream>
 #include <filesystem>
 
+std::string get_path(std::string command){
+    std::string path_env = std::getenv("PATH");
+    std::stringstream ss(path_env);
+    std::string path;
+    while(!ss.eof()){
+        getline(ss, path, ':');
+        std::string abs_path = path + '/' + command;
+        if(std::filesystem::exists(abs_path)){
+            return abs_path;
+        }
+    }
+    return "";  
+}
+
 int main() {
   // Flush after every std::cout / std:cerr
   std::cout << std::unitbuf;
@@ -28,22 +42,11 @@ int main() {
       if (input == "echo" || input == "exit" || input == "type") {
         std::cout << input << " is a shell builtin\n";
       } else {
-        std::string path_env = std::getenv("PATH");
-        std::stringstream ss(path_env);
-        std::string path;
-        bool found = false;
-        while (!ss.eof()) {
-          getline(ss, path, ':');
-          std::string abs_path = path + '/' + input;
-          std::cout << abs_path << std::endl;
-          if(std::filesystem::exists(abs_path)){
-            std::cout << input << " is " << path << std::endl;
-            found = true;
-            break;
-          }
-        }
-        if(!found) {
-          std::cout << input << ": not found\n";
+        std::string path = get_path(input);
+        if(path.empty()){
+          std::cout<<input<<" not found\n";
+        } else{
+          std::cout<<input<<" is "<<path<<std::endl;
         }
       }
     } else {
