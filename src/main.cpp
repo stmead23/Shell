@@ -1,4 +1,8 @@
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <filesystem>
 
 int main() {
   // Flush after every std::cout / std:cerr
@@ -24,7 +28,20 @@ int main() {
       if (input == "echo" || input == "exit" || input == "type") {
         std::cout << input << " is a shell builtin\n";
       } else {
-        std::cout << input << ": not found\n";
+        std::string path_env = std::getenv("PATH");
+        std::stringstream ss(path_env);
+        std::string path;
+        while (!ss.eof()) {
+          getline(ss, path, ':');
+          std::string abs_path = path + '/' + input;
+          if(std::filesystem::exists(abs_path)){
+            std::cout << input << " is " << path << std::endl;
+            break;
+          } else {
+            std::cout << input << ": not found\n";
+            break;
+          }
+        }
       }
     } else {
       std::cout << input << ": command not found\n";
