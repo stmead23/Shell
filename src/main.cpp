@@ -31,17 +31,19 @@ int main() {
         std::string path_env = std::getenv("PATH");
         std::stringstream ss(path_env);
         std::string path;
+        bool found = false;
         while (!ss.eof()) {
           getline(ss, path, ':');
           std::string abs_path = path + '/' + input;
           std::cout << abs_path << std::endl;
           if(std::filesystem::exists(abs_path)){
             std::cout << input << " is " << path << std::endl;
-            break;
-          } else {
-            std::cout << input << ": not found\n";
+            found = true;
             break;
           }
+        }
+        if(!found) {
+          std::cout << input << ": not found\n";
         }
       }
     } else {
