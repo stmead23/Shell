@@ -7,10 +7,10 @@ ShellCommands::ShellCommands(std::string c, std::string v) : command_str(c), val
     } else if (c == "echo") {
         command = echo;
     } else if (c == "type") {
-        std::cout << "Command " << c << " is type.\n";
+        //std::cout << "Command " << c << " is type.\n";
         command = type;
     } else if (c == "pwd") {
-        std::cout << "Command " << c << " is pwd.\n";
+        //std::cout << "Command " << c << " is pwd.\n";
         command = pwd;
     } else {
         std::string path = get_path(c);
