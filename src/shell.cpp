@@ -77,7 +77,11 @@ bool execute_commands(ShellCommands current_command) {
         std::cout << path << std::endl;
         return false;
     case cd:
-        std::filesystem::current_path(current_command.value);
+        try {
+            std::filesystem::current_path(current_command.value);
+        } catch(std::filesystem::filesystem_error const& e) {
+            std::cout << "cd: " << current_command.value << ": No such file or directory\n";
+        }
         return false;
     default:
         std::cout << current_command.command_str << ": command not found\n";
