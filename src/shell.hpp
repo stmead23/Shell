@@ -12,6 +12,7 @@ enum ShellValues {
     type,
     exec,
     pwd,
+    cd,
     invalid
 };
 
