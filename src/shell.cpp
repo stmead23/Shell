@@ -8,6 +8,8 @@ ShellCommands::ShellCommands(std::string c, std::string v) : command_str(c), val
         command = echo;
     } else if (c == "type") {
         command = type;
+    } else if (c == "pwd") {
+        command = pwd;
     } else {
         std::string path = get_path(c);
         if (!path.empty()) {
@@ -67,6 +69,9 @@ bool execute_commands(ShellCommands current_command) {
     case exec:
         path = get_path(current_command.command_str) + " " + current_command.value;
         system(path.c_str());
+        return false;
+    case pwd:
+        std::cout << std::filesystem::current_path() << std::endl;
         return false;
     default:
         std::cout << current_command.command_str << ": command not found\n";

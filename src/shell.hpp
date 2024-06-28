@@ -11,6 +11,7 @@ enum ShellValues {
     echo,
     type,
     exec,
+    pwd,
     invalid
 };
 
