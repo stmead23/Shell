@@ -57,7 +57,7 @@ bool execute_commands(ShellCommands current_command) {
         std::cout << current_command.value << "\n";
         return false;
     case type:
-        if (current_command.value == "echo" || current_command.value == "exit" || current_command.value == "type") {
+        if (current_command.value == "echo" || current_command.value == "exit" || current_command.value == "type" || current_command.value == "pwd") {
             std::cout << current_command.value << " is a shell builtin\n";
         } else {
             path = get_path(current_command.value);
