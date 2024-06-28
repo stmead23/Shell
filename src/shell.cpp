@@ -77,6 +77,11 @@ bool execute_commands(ShellCommands current_command) {
         std::cout << path << std::endl;
         return false;
     case cd:
+        if (current_command.value == "~") {
+            std::filesystem::current_path(std::getenv("HOME"));
+            return false;
+        }
+        
         try {
             std::filesystem::current_path(current_command.value);
         } catch(std::filesystem::filesystem_error const& e) {
