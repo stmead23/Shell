@@ -45,6 +45,7 @@ ShellCommands getCommand(void) {
 }
 
 bool execute_commands(ShellCommands current_command) {
+    std::string path;
     switch (current_command.command) {
     case exit_val:
         return true;
@@ -55,7 +56,7 @@ bool execute_commands(ShellCommands current_command) {
         if (current_command.value == "echo" || current_command.value == "exit" || current_command.value == "type") {
             std::cout << current_command.value << " is a shell builtin\n";
         } else {
-            std::string path = get_path(current_command.value);
+            path = get_path(current_command.value);
             if(path.empty()){
                 std::cout << current_command.value << ": not found\n";
             } else{
@@ -64,7 +65,7 @@ bool execute_commands(ShellCommands current_command) {
         }
         return false;
     case exec:
-        std::string path = get_path(current_command.value) + current_command.value;
+        path = get_path(current_command.value) + current_command.value;
         const char* exec_to_run = path.c_str();
         system(exec_to_run);
         return false;
