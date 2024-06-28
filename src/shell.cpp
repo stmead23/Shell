@@ -1,4 +1,5 @@
 #include "shell.hpp"
+#include <type_traits>
 
 ShellCommands::ShellCommands(std::string c, std::string v) : value(v) {
     if (c == "exit") {
@@ -8,7 +9,12 @@ ShellCommands::ShellCommands(std::string c, std::string v) : value(v) {
     } else if (c == "type") {
         command = type;
     } else {
-        command = invalid;
+        std::string path = get_path(c);
+        if (!path.empty()) {
+            command = exec;
+        } else {
+            command = invalid;
+        }
     }
 }
 
@@ -56,6 +62,11 @@ bool execute_commands(ShellCommands current_command) {
                 std::cout << current_command.value << " is " << path << std::endl;
             }
         }
+        return false;
+    case exec:
+        std::string path = get_path(current_command.value) + current_command.value;
+        const char* exec_to_run = path.c_str();
+        system(exec_to_run);
         return false;
     default:
         std::cout << current_command.value << ": command not found\n";

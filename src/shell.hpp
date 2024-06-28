@@ -10,6 +10,7 @@ enum ShellValues {
     exit_val,
     echo,
     type,
+    exec,
     invalid
 };
 
