@@ -65,7 +65,7 @@ bool execute_commands(ShellCommands current_command) {
         }
         return false;
     case exec:
-        path = get_path(current_command.value) + current_command.value;
+        path = get_path(current_command.value) + " " + current_command.value;
         system(path.c_str());
         return false;
     default:
