@@ -66,8 +66,7 @@ bool execute_commands(ShellCommands current_command) {
         return false;
     case exec:
         path = get_path(current_command.value) + current_command.value;
-        const char* exec_to_run = path.c_str();
-        system(exec_to_run);
+        system(path.c_str());
         return false;
     default:
         std::cout << current_command.value << ": command not found\n";
