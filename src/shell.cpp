@@ -1,7 +1,7 @@
 #include "shell.hpp"
 #include <type_traits>
 
-ShellCommands::ShellCommands(std::string c, std::string v) : value(v) {
+ShellCommands::ShellCommands(std::string c, std::string v) : command_str(c), value(v) {
     if (c == "exit") {
         command = exit_val;
     } else if (c == "echo") {
@@ -65,11 +65,11 @@ bool execute_commands(ShellCommands current_command) {
         }
         return false;
     case exec:
-        path = get_path(current_command.value) + " " + current_command.value;
+        path = get_path(current_command.command_str) + " " + current_command.value;
         system(path.c_str());
         return false;
     default:
-        std::cout << current_command.value << ": command not found\n";
+        std::cout << current_command.command_str << ": command not found\n";
         return false;
     }
 }

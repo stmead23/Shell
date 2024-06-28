@@ -16,6 +16,7 @@ enum ShellValues {
 
 struct ShellCommands {
     ShellValues command;
+    std::string command_str;
     std::string value;
     ShellCommands(std::string c, std::string v);
 };
