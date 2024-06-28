@@ -7,8 +7,10 @@ ShellCommands::ShellCommands(std::string c, std::string v) : command_str(c), val
     } else if (c == "echo") {
         command = echo;
     } else if (c == "type") {
+        std::cout << "Command " << c << " is type.\n";
         command = type;
     } else if (c == "pwd") {
+        std::cout << "Command " << c << " is pwd.\n";
         command = pwd;
     } else {
         std::string path = get_path(c);
@@ -71,7 +73,8 @@ bool execute_commands(ShellCommands current_command) {
         system(path.c_str());
         return false;
     case pwd:
-        std::cout << std::filesystem::current_path() << std::endl;
+        path = std::filesystem::current_path();
+        std::cout << path << std::endl;
         return false;
     default:
         std::cout << current_command.command_str << ": command not found\n";
