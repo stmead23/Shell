@@ -78,6 +78,7 @@ bool execute_commands(ShellCommands current_command) {
         return false;
     case cd:
         std::filesystem::current_path(current_command.value);
+        return false;
     default:
         std::cout << current_command.command_str << ": command not found\n";
         return false;
